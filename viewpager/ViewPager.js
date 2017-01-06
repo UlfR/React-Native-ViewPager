@@ -109,6 +109,9 @@ export default class ViewPager extends Component {
 
     _onScrollViewLayout(event) {
         let {width, height} = event.nativeEvent.layout;
+        if (width != this.state.width && Platform.OS === 'ios') {
+			this.refs[SCROLLVIEW_REF].scrollTo({x: width * this.state.currentPage});
+        }
         this.setState({width, height});
     }
 
