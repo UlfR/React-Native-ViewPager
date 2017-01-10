@@ -16,7 +16,7 @@ const SCROLL_STATE = {
     dragging: 'dragging'
 };
 export default class ViewPager extends Component {
-    static propTypes = {...ViewPagerAndroid.propTypes};
+    static propTypes = {...ViewPagerAndroid.propTypes, useScrollView: PropTypes.bool};
 
     static defaultProps = {
         initialPage: 0,
@@ -25,6 +25,7 @@ export default class ViewPager extends Component {
         onPageSelected: null,
         onPageScrollStateChanged: null,
         currentPage: 0,
+		useScrollView: false,
         pageMargin: 0
     };
 
@@ -43,7 +44,7 @@ export default class ViewPager extends Component {
     });
 
     render() {
-        return Platform.OS === 'ios' ? this._renderOnIOS() : (
+        return Platform.OS === 'ios' || this.props.useScrollView ? this._renderOnIOS() : (
             <ViewPagerAndroid
                 {...this.props}
                 ref={VIEWPAGER_REF}
@@ -109,6 +110,7 @@ export default class ViewPager extends Component {
 
     _onScrollViewLayout(event) {
         let {width, height} = event.nativeEvent.layout;
+		console.log('_onScrollViewLayout>>>>>>>>>', width, this.state.width, this.state.currentPage);
         if (width != this.state.width && Platform.OS === 'ios') {
 			this.refs[SCROLLVIEW_REF].scrollTo({x: width * this.state.currentPage});
         }
@@ -154,7 +156,8 @@ export default class ViewPager extends Component {
     }
 
     setPage(selectedPage) {
-        if (Platform.OS === 'ios') {
+		console.log('VP setPage>>>>>>>>>', selectedPage, this.state.width);
+		if (Platform.OS === 'ios') {
             this.refs[SCROLLVIEW_REF].scrollTo({x: this.state.width * selectedPage});
         } else {
             this.refs[VIEWPAGER_REF].setPage(selectedPage);
