@@ -4,7 +4,7 @@
 
 'use strict';
 
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {StyleSheet, View, ViewPagerAndroid, ScrollView, Platform, PanResponder} from 'react-native';
 
 const SCROLLVIEW_REF = 'scrollView';
