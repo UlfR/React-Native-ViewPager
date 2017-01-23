@@ -25,6 +25,7 @@ export default class PagerTitleIndicator extends Component {
         topTitleContainerStyle: Text.propTypes.style,
         topTitleTextStyle: Text.propTypes.style,
         itemsContainerStyle: Text.propTypes.style,
+		isFake: React.PropTypes.bool,
     };
 
     static defaultProps = {
@@ -33,6 +34,7 @@ export default class PagerTitleIndicator extends Component {
         initialPage: 0,
         topTitleEnabled: true,
         topTitleValue: null,
+        isFake: false,
         topTitleStyle: {}
     };
 
@@ -93,8 +95,8 @@ export default class PagerTitleIndicator extends Component {
     }
 
     render() {
-        let {titles, pager, itemStyle, itemTextStyle, selectedItemTextStyle, selectedBorderStyle} = this.props;
-        if (!titles || titles.length === 0)return null;
+        let {isFake, titles, pager, itemStyle, itemTextStyle, selectedItemTextStyle, selectedBorderStyle} = this.props;
+        if (isFake || !titles || titles.length === 0)return null;
 
         let titleViews = titles.map((title, index)=> {
             let isSelected = this.state.selectedIndex === index;
