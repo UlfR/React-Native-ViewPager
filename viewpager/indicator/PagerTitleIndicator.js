@@ -5,8 +5,9 @@
 'use strict';
 
 import React, {Component, PropTypes} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, View, Text, TouchableOpacity, TouchableNativeFeedback} from 'react-native';
 import IndicatorViewPager from '../IndicatorViewPager';
+const Touchable = Platform.OS == 'ios' ? TouchableOpacity : TouchableNativeFeedback;
 
 export default class PagerTitleIndicator extends Component {
     static propTypes = {
@@ -108,15 +109,17 @@ export default class PagerTitleIndicator extends Component {
             );
 
             return (
-                <TouchableOpacity
+                <Touchable
                         style={[styles.titleContainer, itemStyle]}
                         activeOpacity={0.6}
                         key={index}
                         onPress={() => {this.onItemPress(pager, index, isSelected)}}
                     >
-                    {titleView}
-                    {isSelected ? <View style={[styles.selectedBorder, selectedBorderStyle]}/> : null}
-                </TouchableOpacity>
+					<View style={[styles.titleContainer, itemStyle]} >
+						{titleView}
+						{isSelected ? <View style={[styles.selectedBorder, selectedBorderStyle]}/> : null}
+					</View>
+                </Touchable>
             );
         });
 
