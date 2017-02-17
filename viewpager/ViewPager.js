@@ -16,7 +16,7 @@ const SCROLL_STATE = {
     dragging: 'dragging'
 };
 export default class ViewPager extends Component {
-    static propTypes = {...ViewPagerAndroid.propTypes, useScrollView: PropTypes.bool};
+    static propTypes = {...ViewPagerAndroid.propTypes, useScrollView: PropTypes.bool, scrollable: PropTypes.bool};
 
     static defaultProps = {
         initialPage: 0,
@@ -26,6 +26,7 @@ export default class ViewPager extends Component {
         onPageScrollStateChanged: null,
         currentPage: 0,
 		useScrollView: false,
+		scrollable: true,
         pageMargin: 0
     };
 
@@ -72,6 +73,7 @@ export default class ViewPager extends Component {
             ref: SCROLLVIEW_REF,
             onLayout: this._onScrollViewLayout.bind(this),
             horizontal: true,
+			scrollEnabled: this.props.scrollable,
             pagingEnabled: true,
             scrollsToTop: false,
             showsHorizontalScrollIndicator: false,
