@@ -110,6 +110,7 @@ export default class PagerTitleIndicator extends Component {
 
             return (
                 <Touchable
+						disabled={this.props.disabled}
                         style={[styles.titleContainer, itemStyle]}
                         activeOpacity={0.6}
                         key={index}
